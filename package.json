@@ -1,0 +1,19 @@
+{
+  "name": "movies-api",
+  "version": "1.0.0",
+  "description": "Movies API para o treinamento GPES",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stella-celentano/movies-api.git"
+  },
+  "author": "Stella Celentano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stella-celentano/movies-api/issues"
+  },
+  "homepage": "https://github.com/stella-celentano/movies-api#readme"
+}
