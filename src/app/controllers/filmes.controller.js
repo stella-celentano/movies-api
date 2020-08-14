@@ -1,5 +1,15 @@
 const filmesschema = require('./../models/filmes.model');
 
+function definirCamposDeBusca(campos) {
+    if (campos == 'nome18') {
+        return { nome: 1, maior18: 1 }
+    } else if (campos == 'nome') {
+        return { nome: 1 }
+    } else {
+        return null
+    }
+}
+
 class Filme {
     criarFilme(req, res) { 
         // dizendo para a constando body que ela vai receber o valor da requisição na posição body,
@@ -16,11 +26,15 @@ class Filme {
     }
 
     visualizarFilmes(req, res) {
-        filmesschema.find({}, (err, data) => {
+        // se passar esse parâmetro de maior18, vai fazer uma busca de determinado jeito.
+        // São parâmetros opcionais
+        const campos = req.query.campos
+        // a primeira chave informa as condições .find({ESSA AQUI}, ....)
+        filmesschema.find({}, definirCamposDeBusca(campos), (err, data) => {
             if (err) {
                 res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: err })
             } else {
-                res.status(200).send({ message: "Todos os filmes foram recuperados com sucessr", filmes: data })
+                res.status(200).send({ message: "Todos os filmes foram recuperados com sucesso", filmes: data })
             }
         })
     }
