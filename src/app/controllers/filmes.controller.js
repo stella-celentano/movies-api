@@ -14,6 +14,16 @@ class Filme {
             }
         })
     }
+
+    visualizarFilmes(req, res) {
+        filmesschema.find({}, (err, data) => {
+            if (err) {
+                res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: err })
+            } else {
+                res.status(200).send({ message: "Todos os filmes foram recuperados com sucessr", filmes: data })
+            }
+        })
+    }
 }
 
 // já exporta a classe instanciada, para quem importar ja tem acesso à todos os método
