@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const FilmeSchema = new Schema({
-    name: {
+    nome: {
         type: String,
         required: true,
         // pega a string e vai tirar os espaços que tem no começo e no final, 
