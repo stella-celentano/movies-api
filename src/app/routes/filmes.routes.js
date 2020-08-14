@@ -8,5 +8,6 @@ route.post('/criar', FilmeController.criarFilme);
 // síntaxe: route.método('nome_da_rota', controller_responsável.nome_do_método_no_controller) 
 // essa rota redireciona direto para o método e executa o entrypoint
 route.get('/visualizarTodos', FilmeController.visualizarFilmes);
+route.get('/visualizarUm/:nome', FilmeController.visualizarUmFilme)
 
 module.exports = route
