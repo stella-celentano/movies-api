@@ -1,4 +1,5 @@
 const filmesschema = require('./../models/filmes.model');
+const { request } = require('express');
 
 function definirCamposDeBusca(campos) {
     if (campos == 'nome18') {
@@ -55,13 +56,22 @@ class Filme {
     }
 
     atualizarUmFilme(req, res) {
-        const nome = req.params.nome
+        const nomeDoFilmeParaSerAtualizado = req.params.nome
+        const novoNomeDoFilme = req.body.nome
 
-        filmesschema.updateOne({ nome: nome }, { $set: req.body }, (err, data) => {
+        filmesschema.updateOne({ nome: nomeDoFilmeParaSerAtualizado }, { $set: req.body }, (err, data) => {
             if (err) {
-                res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: err })
+                res.status(500).send({ message: "Houve um erro ao processar sua atualização", error: err })
             } else {
-                res.status(200).send({ message: `Filme ${nome} foi atualizado com sucesso`, update: data })
+                if (data.n > 0) {
+                    filmesschema.findOne({ nome: novoNomeDoFilme }, (error, data) => {
+                        if (err) {
+                            res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: error })
+                        } else {
+                            res.status(200).send({ message: `File ${nomeDoFilmeParaSerAtualizado} teve seu nome atualizado para ${novoNomeDoFilme}`, filme: data })
+                        }
+                    })
+                }
             }
         })
     }
