@@ -53,6 +53,18 @@ class Filme {
             }
         })
     }
+
+    atualizarUmFilme(req, res) {
+        const nome = req.params.nome
+
+        filmesschema.updateOne({ nome: nome }, { $set: req.body }, (err, data) => {
+            if (err) {
+                res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: err })
+            } else {
+                res.status(200).send({ message: `Filme ${nome} foi atualizado com sucesso`, update: data })
+            }
+        })
+    }
 }
 
 // já exporta a classe instanciada, para quem importar ja tem acesso à todos os método
