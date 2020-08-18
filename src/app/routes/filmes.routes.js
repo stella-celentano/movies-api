@@ -11,5 +11,6 @@ route.post('/criar', FilmeController.criarFilme);
 route.get('/visualizarTodos', FilmeController.visualizarFilmes);
 route.get('/visualizarUm/:nome', FilmeController.visualizarUmFilme);
 route.put('/atualizarUm/:nome', FilmeController.atualizarUmFilme);
+route.delete('/apagarUm/:nome', FilmeController.apagarUmFilme);
 
 module.exports = route

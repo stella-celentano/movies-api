@@ -75,6 +75,19 @@ class Filme {
             }
         })
     }
+
+    apagarUmFilme(req, res) {
+        const nomeDoFilmeParaSerApagado = req.params.nome
+
+        filmesschema.deleteOne({ nome: nomeDoFilmeParaSerApagado }, (err) => {
+            if (err) {
+                res.status(500).send({ message: "Houve um erro ao apagar um filme", error: err })
+            } else {
+                res.status(200).send({ message: `O filme ${nomeDoFilmeParaSerApagado} foi apagado com sucesso` })
+            }
+        })
+    }
+
 }
 
 // já exporta a classe instanciada, para quem importar ja tem acesso à todos os método
