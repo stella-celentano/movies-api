@@ -10,15 +10,32 @@ const FilmeSchema = new Schema({
     },
     genero: {
         type: String,
-        required: false,
+        required: true,
         trim: true
     },
     ano: {
         type: Number,
         required: false
     },
-    maior18: {
-        type: Boolean,
+    classificacaoIndicativa: {
+        type: String,
+        required: false
+    },
+    estudio: {
+        type: String,
+        trim: true
+    },
+    duracao: {
+        type: Number
+    },
+    imagem: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    diretor: {
+        type: Schema.Types.ObjectId,
+        ref: 'Diretor',
         required: true
     }
 },
@@ -31,4 +48,4 @@ const FilmeSchema = new Schema({
     }
 ) 
 
-module.exports = model('filmeschema', FilmeSchema) 
+module.exports = model('Filme', FilmeSchema) 
