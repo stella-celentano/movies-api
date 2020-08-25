@@ -3,7 +3,6 @@ const express = require('express');
 const route = express.Router(); 
 
 const FilmeController = require('./../controllers/filmes.controller');
-const filmesController = require('./../controllers/filmes.controller');
 
 route.post('/criar', FilmeController.criarFilme);
 // síntaxe: route.método('nome_da_rota', controller_responsável.nome_do_método_no_controller) 
