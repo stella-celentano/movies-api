@@ -32,7 +32,7 @@ class Diretor {
                     res.status(500).send({ message: "Houve um erro ao processar a sua requisição", error: err })
                 } else {
                     if (data.length <= 0) {
-                        res.status(200).send({message: `O diretor ${nomeDiretor} não existe no banco de dados`})
+                        res.status(200).send({ message: `O diretor ${nomeDiretor} não existe no banco de dados` })
                     } else if (data['filmes'].length <= 0) {
                         res.status(200).send({ message: `O diretor ${nomeDiretor} não possui nenhum filme cadastrado` })
                     } else {
@@ -40,6 +40,18 @@ class Diretor {
                     }
                 }
             })
+    }
+
+    criarUmDiretor(req, res) {
+        const reqBody = req.body;
+
+        diretor.create(reqBody, (err, data) => {
+            if (err) {
+                res.status(500).send({ message: "Houve um erro ao processar a sua requisição", error: err })
+            } else {
+                res.status(201).send({ message: "Diretor criado com sucesso", data: data })
+            }
+        })
     }
 
 }
