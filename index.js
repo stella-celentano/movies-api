@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000
 const database = require('./src/config/database')
 
 // Importando as rotas da aplicação
-const FilmesRoutes = require('./src/app/routes/filmes.routes');
+const FilmesRoutes = require('./src/app/routes/filme.routes');
 const DiretorRoutes = require('./src/app/routes/diretor.routes');
 
 // Configurando o body parser
