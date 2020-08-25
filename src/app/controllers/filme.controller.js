@@ -1,11 +1,11 @@
-const filmesschema = require('./../models/filme.model');
-const { request } = require('express');
+const filme = require('./../models/filme.model');
+const diretor = require('./../models/diretor.model');
 
 class Filme {
 
     buscarTodosOsFilmes(req, res) {
         // a primeira chave informa as condições .find({ESSA AQUI}, ....)
-        filmesschema.find({})
+        filme.find({})
             .populate('diretor', { nome: 1, imagem: 1 })
             .sort({ nome: 1 })
             .exec((err, data) => {
@@ -27,11 +27,11 @@ class Filme {
         const { nomeFilme } = req.params
 
         if (nomeFilme == undefined || nomeFilme == 'null') {
-            res.status(400).send({message: "O nome do filme deve ser obrigatoriamente preenchido"})
+            res.status(400).send({ message: "O nome do filme deve ser obrigatoriamente preenchido" })
         }
 
         // vai buscar dentro do banco de dados o name cadastraco que seja igual ao nome que está sendo buscado
-        filmesschema.find({ nome: nomeFilme })
+        filme.find({ nome: nomeFilme })
             .populate('diretor', { nome: 1, imagem: 1 })
             .exec((err, data) => {
                 if (err) {
@@ -49,13 +49,27 @@ class Filme {
     criarFilme(req, res) {
         // dizendo para a constando body que ela vai receber o valor da requisição na posição body,
         // tudo que for enviado no corpo da requisição vai estar nessa constante
-        const body = req.body
+        const reqBody = req.body
+        const idDiretor = reqBody['diretor']
 
-        filmesschema.create(body, (err, data) => {
+        filme.create(reqBody, (err, filme) => {
             if (err) {
-                res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: err })
+                res.status(500).send({ message: "Houve um erro ao processar a sua requisição", error: err })
             } else {
-                res.status(201).send({ message: "Filme criado com sucesso no banco de dados", filme: data })
+                diretor.findById(idDiretor, (err, diretor) => {
+                    if (err) {
+                        res.status(500).send({ message: "Houve um erro ao processar a sua requisição", error: err })
+                    } else {
+                        diretor.filmes.push(filme)
+                        diretor.save({}, (err) => {
+                            if (err) {
+                                res.status(500).send({ message: "Houve um erro ao procesar a sua requisição", error: err })
+                            } else {
+                                res.status(201).send({ message: "Filme criado com sucesso", data: filme })
+                            }
+                        })
+                    }
+                })
             }
         })
     }
