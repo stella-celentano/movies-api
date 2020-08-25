@@ -1,4 +1,4 @@
-const filmesschema = require('./../models/filmes.model');
+const filmesschema = require('./../models/filme.model');
 const { request } = require('express');
 
 function definirCamposDeBusca(campos) {
