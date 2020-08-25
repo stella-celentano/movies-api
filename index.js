@@ -8,6 +8,7 @@ const database = require('./src/config/database')
 
 // Importando as rotas da aplicação
 const FilmesRoutes = require('./src/app/routes/filmes.routes');
+const DiretorRoutes = require('./src/app/routes/diretor.routes');
 
 // Configurando o body parser
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
 // quando mandar a requisição vai procurar uma rota que seja indêntica ao que é disponibilizado na API,
 // antes de passar as rotas disponíveis de filmes, ele manda a requisição para o arquivo FilmesRoutes
 app.use('/filmes', FilmesRoutes); 
+app.use('/diretor', DiretorRoutes);
 
 // Configurando o endpoint * que é retornado quando uma URL requisitada não existe
 app.use('*', (req, res) => {
