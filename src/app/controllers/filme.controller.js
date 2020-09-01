@@ -37,7 +37,7 @@ class Filme {
                 if (err) {
                     res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: err })
                 } else {
-                    if (data.length == null) {
+                    if (data == null) {
                         res.status(200).send({ message: `Filme ${nomeFilme} não foi encontrado no banco de dados` })
                     } else {
                         res.status(200).send({ message: `Filme ${nomeFilme} foi recuperado com sucesso`, data: data })
