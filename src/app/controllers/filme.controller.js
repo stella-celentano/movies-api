@@ -15,7 +15,7 @@ class Filme {
                     if (data.length <= 0) {
                         res.status(200).send({ message: "Não existem filmes cadastrados no banco de dados" })
                     } else {
-                        res.status(200).send({ message: "Todos os filmes foram recuperados com sucesso", filmes: data })
+                        res.status(200).send({ message: "Todos os filmes foram recuperados com sucesso", data: data })
                     }
                 }
             })
@@ -31,16 +31,16 @@ class Filme {
         }
 
         // vai buscar dentro do banco de dados o name cadastraco que seja igual ao nome que está sendo buscado
-        filme.find({ nome: nomeFilme })
+        filme.findOne({ nome: nomeFilme })
             .populate('diretor', { nome: 1, imagem: 1 })
             .exec((err, data) => {
                 if (err) {
                     res.status(500).send({ message: "Houve um erro ao processar sua requisição", error: err })
                 } else {
-                    if (data.length <= 0) {
+                    if (data.length == null) {
                         res.status(200).send({ message: `Filme ${nomeFilme} não foi encontrado no banco de dados` })
                     } else {
-                        res.status(200).send({ message: `Filme ${nomeFilme} foi recuperado com sucesso`, filme: data })
+                        res.status(200).send({ message: `Filme ${nomeFilme} foi recuperado com sucesso`, data: data })
                     }
                 }
             })

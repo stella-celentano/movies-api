@@ -18,7 +18,7 @@ class Diretor {
             })
     }
 
-    buscarOsFilmesDeUmDiretorPeloNomeDele(req, res) {
+    buscarUmDiretorPeloNome(req, res) {
         const { nomeDiretor } = req.params
 
         if (nomeDiretor == undefined || nomeDiretor == 'null') {

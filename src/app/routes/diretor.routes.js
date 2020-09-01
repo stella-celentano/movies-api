@@ -3,7 +3,7 @@ const route = express.Router();
 const Diretor = require('./../controllers/diretor.controller');
 
 route.get('/listarTodos', Diretor.buscarTodosOsDiretores);
-route.get('/listarUm/:nomeDiretor', Diretor.buscarOsFilmesDeUmDiretorPeloNomeDele);
+route.get('/listarUm/:nomeDiretor', Diretor.buscarUmDiretorPeloNome);
 route.post('/criar', Diretor.criarUmDiretor);
 
 module.exports = route;

@@ -13,22 +13,22 @@ const FilmeSchema = new Schema({
         required: true,
         trim: true
     },
-    ano: {
-        type: Number,
-        required: false
-    },
     classificacaoIndicativa: {
         type: String,
         required: false
     },
-    estudio: {
-        type: String,
-        trim: true
+    dataLancamento: {
+        type: Date
     },
     duracao: {
-        type: Number
+        type: String
     },
     imagem: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    sinopse: {
         type: String,
         required: true,
         trim: true
