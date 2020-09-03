@@ -53,7 +53,7 @@ class Diretor {
     }
 
     validarNomeDiretor(req, res) {
-        const nome = req.query.nome.replace(/%20/g, "")
+        const nome = req.query.nome.replace(/%20/g, " ")
 
         diretor.find({ nome: { '$regex': `^${nome}$`, '$options': 'i' } }, (err, result) => {
             if (err) {

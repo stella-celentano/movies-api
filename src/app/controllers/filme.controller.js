@@ -75,7 +75,7 @@ class Filme {
     }
 
     validarNomeFilme(req, res) {
-        const nome = req.query.nome.replace(/%20/g, "")
+        const nome = req.query.nome.replace(/%20/g, " ")
 
         filme.find({ nome: { '$regex': `^${nome}$`, '$options': 'i' } }, (err, result) => {
             if (err) {
