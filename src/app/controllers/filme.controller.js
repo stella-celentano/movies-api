@@ -89,6 +89,50 @@ class Filme {
             }
         })
     }
+
+    update(req, res) {
+        const { movieId } = req.params
+        const reqBody = req.body
+        const directorId = reqBody['diretor']
+
+        filme.updateOne({ _id: movieId }, { $set: reqBody }, (err, filme) => {
+            if (err) {
+                res.status(500).send({ message: "Houve um erro ao processar a sua requisição" })
+            } else {
+                diretor.findOne({ filmes: movieId }, (err, result) => {
+                    if (err) {
+                        res.status(500).send({ message: "Houve um erro ao processar a sua requisição" })
+                    } else {
+                        if (result['_id'] == directorId) {
+                            res.status(200).send({ message: 'O filme foi atualizado com sucesso', data: filme })
+                        } else {
+                            result.filmes.pull(movieId)
+                            result.save({}, (err) => {
+                                if (err) {
+                                    res.status(500).send({ message: "Houve um erro ao processar a sua requisição" })
+                                } else {
+                                    diretor.findById(directorId, (err, diretor) => {
+                                        if (err) {
+                                            res.status(500).send({ message: "Houve um erro ao processar a sua requisição" })
+                                        } else {
+                                            diretor.filmes.push(movieId)
+                                            diretor.save({}, (err) => {
+                                                if (err) {
+                                                    res.status(500).send({ message: "Houve um erro ao processar a sua requisição" })
+                                                } else {
+                                                    res.status(200).send({ message: 'O filme foi atualizado com sucesso', data: filme })
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        })
+    }
 }
 
 // já exporta a classe instanciada, para quem importar ja tem acesso à todos os método
